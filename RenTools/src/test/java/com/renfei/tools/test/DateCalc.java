@@ -16,7 +16,7 @@ public class DateCalc {
         Calendar c2 = Calendar.getInstance();
         c2.set(2017, 3, 31);
         int[] ints = getNeturalAge(c1, c2);
-        Print.line(ints[2]);
+        Print.printLine(ints[2]);
 
     }
 

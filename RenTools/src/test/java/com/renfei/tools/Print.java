@@ -6,11 +6,11 @@ package com.renfei.tools;
 public class Print {
 
 
-    public static void line(Object obj){
+    public static void printLine(Object obj){
         System.out.println(obj);
     }
 
-    public static void inLine(Object obj){
+    public static void printInLine(Object obj){
         System.out.print(obj);
     }
 }
