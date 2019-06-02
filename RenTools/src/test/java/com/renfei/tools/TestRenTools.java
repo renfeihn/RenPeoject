@@ -16,4 +16,14 @@ public class TestRenTools {
         System.out.println("ld=" + SimilarityUtil.ld(str1, str2));
         System.out.println("sim=" + SimilarityUtil.sim(str1, str2));
     }
+
+
+    @Test
+    public void testNG(){
+        String s = "[[    0.0101,    0.0005,    0.0009,    0.0002,    0.0007,    0.9667,    0.0002,    0.0134,    0.0051,    0.0023]]";
+
+        System.out.println(s.substring(s.lastIndexOf("[") +1,s.indexOf("]")));
+
+
+    }
 }
