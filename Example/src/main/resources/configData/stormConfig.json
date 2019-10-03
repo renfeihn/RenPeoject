@@ -1,0 +1,30 @@
+{
+  "list": [
+    {
+      "id": "1",
+      "server_id": "1",
+      "exec_asda": true
+    },
+    {
+      "id": "2",
+      "server_id": "2"
+    },
+    {
+      "id": "3",
+      "server_id": "3"
+    }
+  ],
+
+  "zkIds": [
+    "1",
+    "2",
+    "3"
+  ],
+  "storm.zookeeper.port": "2181",
+  "storm.zookeeper.root": "/storm",
+  "transactional.zookeeper.root": "/transactional",
+  "storm.local.dir": "/home/storm/data/storm/storm-local",
+  "storm.log.dir": "/home/storm/logs/storm",
+  "ui.port": "8078",
+  "logviewer.port": "8079"
+}

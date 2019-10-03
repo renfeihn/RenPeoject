@@ -26,7 +26,7 @@ public class NioSocketServer {
     }
 
     public void start() {
-        //创建serverSocketChannel，监听8888端口
+        //创建serverSocketChannel，监听 8888 端口
         try (ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
             serverSocketChannel.socket().bind(new InetSocketAddress(SERVER_PORT));
             //设置为非阻塞模式

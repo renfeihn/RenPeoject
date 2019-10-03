@@ -1,0 +1,44 @@
+{
+  "storm.kafka.config.hosts": "10.7.1.1:2181,10.7.1.11:2181,10.7.1.12:2181",
+  "storm.kafka.config.topic": "asda",
+  "storm.kafka.config.startOffsetTime": false,
+
+  "hbase.config": {
+    "hbase.zookeeper.quorum": "10.7.1.1,10.7.1.11,10.7.1.12",
+    "hbase.zookeeper.property.clientPort": "2181",
+    "hbase.client.write.buffer": 8388608,
+  },
+
+  "es.config": {
+    "es.clusterName": "drcblogana",
+    "es.nodes": "10.7.1.5:9300,10.7.1.6:9300,10.7.1.7:9300",
+    "client.transport.sniff": "true",
+  },
+
+  "afa.config": {
+    "agentName": "",
+    "defaultTo": "afacsl",
+    "ioThreads": "1",
+    "timeoutMills": "20000",
+    "urls": "10.7.1.3:9103,10.7.1.4:9103",
+    "registerMc": "",
+    "registerTc": "",
+    "unregisterMc": "",
+    "unregisterTc": "",
+
+    "syncConfigIntevalSeconds": 60,
+  },
+
+  "storm.zookeeper.connection.timeout": 60000,
+  "storm.zookeeper.session.timeout": 180000,
+
+  "topology.name": "asda",
+  "topology.max.spout.pending": 10,
+  "topology.workers": 4,
+
+  "asda.concurrency": 2,
+
+  "asda.hbase.applog.enabled": false,
+  "asda.hbase.trans.parse.duration.enabled": true,
+  "asda.debug": false,
+}

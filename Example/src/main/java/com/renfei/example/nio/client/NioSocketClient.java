@@ -30,7 +30,8 @@ public class NioSocketClient {
             while (sendCount < 10) {
                 buffer.clear();
                 //向服务端发送消息
-                buffer.put(("current time : " + System.currentTimeMillis()).getBytes());
+                String in = "输入";
+                buffer.put(in.getBytes());
                 //读取模式
                 buffer.flip();
                 socketChannel.write(buffer);

@@ -9,6 +9,12 @@ import java.util.Map;
  */
 public class BusiUtil {
 
+
+
+    public static String normalize(String s){
+        return s.replace("/","\\");
+    }
+
     public static boolean isNull(Object o) {
         if (o == null) {
             return true;

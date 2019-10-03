@@ -5,7 +5,7 @@ if "%1" == "" (
     for /f "delims=" %%i in ('dir /s /b /a-d /o-s *.jar') do (
         echo 正在反编译 %%~ni...
         title 正在反编译 %%i...
-        java -jar G:\cfr-0.145.jar "%%i" --caseinsensitivefs true  --outputdir "%%~di%%~pi%%~ni"
+        java -jar E:\renfei\WorkSpace\IDEA\RenPeoject\工具\反编译神器\cfr-0.145.jar "%%i" --caseinsensitivefs true  --outputdir "%%~di%%~pi%%~ni"
         echo ----%%i已经翻反编译---
     )
     goto :end 
