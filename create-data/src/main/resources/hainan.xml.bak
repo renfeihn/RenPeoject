@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<import id="createData" desc="造数:阜新">
+    <dbs>
+
+        <db id="level1">
+            <url><![CDATA[jdbc:oracle:thin:@192.168.162.202:1521:dcits]]></url>
+            <username>IFP</username>
+            <password>IFP</password>
+            <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+        </db>
+    </dbs>
+    <sequences>
+        <seq name="INTERNAL_KEY" initValue="600000000"/>
+        <seq name="SUB_INTERNAL_KEY" initValue="700000000"/>
+
+        <seq name="CLIENT_KEY" initValue="90000"/>
+        <seq name="USER_KEY" initValue="8100"/>
+        <seq name="IRL_SQL_NO" initValue="300000000"/>
+    </sequences>
+    <truncate>
+	    <table name="UM_PARTICIPANT_USER"  connection="[dbs][0]"/>
+	    <table name="UM_UIA_INFO"  connection="[dbs][0]"/>
+	    <table name="UM_LOCAL_USER"  connection="[dbs][0]"/>
+	    <table name="EA_ACCT"  connection="[dbs][0]"/>
+	    <table name="EA_INT_DETAIL"  connection="[dbs][0]"/>
+	    <table name="EA_ACCT_BALANCE"  connection="[dbs][0]"/>
+	    <table name="VA_ACCT"  connection="[dbs][0]"/>
+	    <table name="VA_INT_DETAIL"  connection="[dbs][0]"/>
+	    <table name="VA_ACCT_BALANCE"  connection="[dbs][0]"/>
+	    <table name="AM_REL_ACCT_ACCT"  connection="[dbs][0]"/>
+	    <table name="AM_PASSWORD"  connection="[dbs][0]"/>
+	    <table name="AM_PASSWORD_ENCRYPT"  connection="[dbs][0]"/>
+	    <table name="AM_BANK_ACCT"  connection="[dbs][0]"/>
+	    <table name="AM_AA_MAINT_HIST"  connection="[dbs][0]"/>
+	    <table name="AM_PASSWORD_HIST"  connection="[dbs][0]"/>
+	    <table name="AM_CA_MAINT_HIST"  connection="[dbs][0]"/>
+	    <table name="EA_ACCT_MAINT_HIST"  connection="[dbs][0]"/>
+	    <table name="CM_TRAN_COMM"  connection="[dbs][0]"/>
+    </truncate>
+
+    <const name="acctPostfix" value="00000000" desc="账号后缀"/>
+    <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+    <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+    <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+    <const name="acctOpenDate" value="20171220" desc="开户日"/>
+    <const name="nextCycleDate" value="20171221" desc="下一结息日"/>
+    <const name="lastCycleDate" value="20170921" desc="下一结息日"/>
+    <const name="lastChangeDate" value="20170620" desc="最后一次修改日期"/>
+    <const name="clientType" value="01" desc="对私客户类型"/>
+    <const name="categoryType" value="101" desc=""/>
+    <const name="expiryDate" value="20500320" desc="失效日"/>
+    <const name="prodType" value="RB8001000001" desc="产品类型"/>
+    <!--<const name="branch" value="600000" desc="默认分行"/>-->
+    <const name="userId" value="TESTCP11" desc="默认柜员"/>
+    <const name="acctType" value="C" desc="账户类型"/>
+    <const name="cycleFreq" value="3M" desc="结息频率"/>
+    <const name="intDay" value="21" desc="结息日"/>
+    <const name="visaFLag" value="Y" desc="visa标识"/>
+    <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+
+    <define id="umParticipantUser" desc="参与人">
+        <table name="UM_PARTICIPANT_USER" connection="[dbs][0]">
+            <column name="USER_ID">'188' + T(Tools).pd(#indexW,'L','0',7)+#indexW%2</column>
+            <column name="CLIENT_NO">#_USER_ID</column>
+            <column name="LOCAL_ACT_STATUS">'2'</column>
+            <column name="THIRD_ACT_STATUS">'0'</column>
+            <column name="BANK_ACT_STATUS">'0'</column>
+            <!-- <column name="UPDATE_DATE">'20191223131010'</column>
+            <column name="CREATE_DATE">'20191223131010'</column> -->
+            <column name="BRANCH">'01300'</column>
+            <column name="USER_TYPE">'0'</column>
+            <column name="PART_STATUS">'0'</column>
+            <!-- <column name="PART_STATUS_TIME">'20191223131010'</column> -->
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="umLocalUser" desc="本地用户">
+        <table name="UM_LOCAL_USER" connection="[dbs][0]">
+            <column name="USER_ID">#_USER_ID</column>
+            <column name="USER_NAME">'测试'+#_USER_ID</column>
+            <column name="NAME_BIND_STATUS">'0'</column>
+            <column name="PHONE">#_USER_ID</column>
+            <column name="PHONE_BIND_STATUS">'2'</column>
+            <column name="EMAIL_BIND_STATUS">'0'</column>
+            <column name="AUTH_LEVEL">'3'</column>
+            <column name="ACCOUNT_LEVEL">'2'</column>
+            <!-- <column name="UPDATE_DATE">'20191223131010'</column> -->
+            <column name="NICK_NAME">#_USER_NAME</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="umUiaInfo" desc="用户实名信息">
+        <table name="UM_UIA_INFO" connection="[dbs][0]">
+            <column name="USER_ID">#_USER_ID</column>
+            <column name="DOCUMENT_NAME">#_USER_NAME</column>
+            <column name="DOCUMENT_ID">'513401198'+T(Tools).pd(#indexW,'L','0',8)+#indexW%2</column>
+            <column name="ID_EXPIRY_DATE">'20991231'</column>
+            <column name="DOCUMENT_TYPE">'0'</column>
+            <column name="AUTH_ACCT_NO">'666666881'+T(Tools).pd(#indexW,'L','0',8)+#indexW%2</column>
+            <column name="ISSUE_OFFICE">'000000'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="eaAcct" desc="II类户">
+        <table name="EA_ACCT" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">T(Tools).getSeqNo('INTERNAL_KEY')</column>
+            <column name="BASE_ACCT_NO">'666666882'+T(Tools).pd(#indexW,'L','0',7)+T(Tools).pd(#indexJ,'L','0',2)</column>
+            <column name="PROD_TYPE">'EA101'</column>
+            <column name="CCY">'CNY'</column>
+            <column name="ACCT_SEQ_NO">'1'</column>
+            <column name="SOURCE_TYPE">'EN'</column>
+            <column name="BRANCH">'01300'</column>
+            <column name="CLIENT_NO">#_CLIENT_NO</column>
+            <column name="DOCUMENT_TYPE">#_DOCUMENT_TYPE</column>
+            <column name="DOCUMENT_ID">#_DOCUMENT_ID</column>
+            <column name="MOBILE_PHONE">#_CLIENT_NO</column>
+            <column name="ACCT_OPEN_DATE">'20160511'</column>
+            <column name="ACCT_NAME">#_USER_NAME</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="ACCT_CLASS">'02'</column>
+            <column name="ACCT_NATURE">'2'</column>
+            <column name="ACCT_EXEC">'99'</column>
+            <column name="LAST_TRAN_DATE">'20160511'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="eaIntDetail" desc="II类户利息信息">
+        <table name="EA_INT_DETAIL" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="NEXT_CYCLE_DATE">'20160621'</column>
+            <column name="PERIOD_FREQ">'M3'</column>
+            <column name="INT_DAY">'21'</column>
+            <column name="INT_RATE_TYPE">'HQI'</column>
+            <column name="INT_ACCRUED">'0'</column>
+            <column name="INT_POSTED_PRE">'0'</column>
+            <column name="INT_POSTED_TOTAL">'0'</column>
+            <column name="INT_APPL_TYPE">'A'</column>
+            <column name="CALC_BEGIN_DATE">'20160511'</column>
+            <column name="LAST_CHANGE_DATE">'20160608'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="eaAcctBalance" desc="II类户余额">
+        <table name="EA_ACCT_BALANCE" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="BALANCE">'10000'</column>
+            <column name="PREV_DAY_BAL">'0'</column>
+            <column name="TOTAL_PLEDGED_AMT">'0'</column>
+            <column name="TOTAL_AUTH_OD">'0'</column>
+            <column name="LAST_CHANGE_DATE">'20160511'</column>
+            <column name="STOP_WTD_FLAG">'0'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="vaAcct" desc="虚户账户信息">
+        <table name="VA_ACCT" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">T(Tools).getSeqNo('INTERNAL_KEY')</column>
+            <column name="BASE_ACCT_NO">'666666883'+T(Tools).pd(#indexW,'L','0',7)+T(Tools).pd(#indexK,'L','0',2)</column>
+            <column name="PROD_TYPE">'VA101'</column>
+            <column name="CCY">'CNY'</column>
+            <column name="ACCT_SEQ_NO">'1'</column>
+            <column name="SOURCE_TYPE">'EN'</column>
+            <column name="BRANCH">'01300'</column>
+            <!--
+            <column name="VA_USER_ID">'110000002602'</column>
+            -->
+            <column name="CLIENT_NO">#_CLIENT_NO</column>
+            <column name="MOBILE_PHONE">#_CLIENT_NO</column>
+            <column name="ACCT_OPEN_DATE">'20160609'</column>
+            <column name="ACCT_NAME">'VA测试'</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="ACCT_CLASS">'06'</column>
+            <column name="ACCT_NATURE">'2'</column>
+            <column name="ACCT_EXEC">'99'</column>
+            <column name="LAST_TRAN_DATE">'20160609'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="vaIntDetail" desc="虚户利息信息">
+        <table name="VA_INT_DETAIL" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="NEXT_CYCLE_DATE">'20160621'</column>
+            <column name="PERIOD_FREQ">'M3'</column>
+            <column name="INT_DAY">'21'</column>
+            <column name="INT_RATE_TYPE">'ZHC'</column>
+            <column name="INT_APPL_TYPE">'A'</column>
+            <column name="CALC_BEGIN_DATE">'20160609'</column>
+            <column name="LAST_CHANGE_DATE">'20160609'</column>
+            <column name="BRANCH">'01301'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="vaAcctBalance" desc="虚户账户余额">
+        <table name="VA_ACCT_BALANCE" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="BALANCE">'10000'</column>
+            <column name="PREV_DAY_BAL">'0'</column>
+            <column name="TOTAL_PLEDGED_AMT">'0'</column>
+            <column name="TOTAL_AUTH_OD">'0'</column>
+            <column name="LAST_CHANGE_DATE">'20160609'</column>
+            <column name="STOP_WTD_FLAG">'0'</column>
+            <column name="SETTLED_AMT">'0'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="amRelAcctAcct" desc="账户关联表">
+        <table name="AM_REL_ACCT_ACCT" connection="[dbs][0]">
+            <column name="ACCT_ATT_TYPE">#ACCT_ATT_TYPE</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="ACCT_REL_TYPE">'02'</column>
+            <column name="LINKED_ACCT_ATT_TYPE">'01'</column>
+            <column name="LINKED_BANK_FLAG">'01'</column>
+            <column name="LINKED_INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="LINKED_BASE_ACCT_NO">'188'+T(Tools).pd(#indexK,'L','0',8)</column>
+            <column name="LINKED_STATUS">'Y'</column>
+            <column name="LINKED_MAIN_IND">'Y'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="amPassword" desc="账户密码信息表">
+        <table name="AM_PASSWORD" connection="[dbs][0]">
+            <column name="ACCT_ATT_TYPE">#ACCT_ATT_TYPE</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="PWD_TYPE">'WD'</column>
+            <column name="PASSWORD_STATUS">'A'</column>
+            <column name="FAILURE_TIMES">'0'</column>
+            <!-- <column name="PASSWORD_EFFECT_DATE">'20180201'</column>
+            <column name="LAST_CHANGE_DATE">'20180201'</column>
+            <column name="PASSWORD_FAILURE_DATE">'20180201'</column>
+            <column name="PASSWORD_LOCK_DATE">'20180201'</column> -->
+            <column name="CHANGE_IND">'Y'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <define id="amPasswordEncrypt" desc="账户密码信息表">
+        <table name="AM_PASSWORD_ENCRYPT" connection="[dbs][0]">
+            <column name="ACCT_ATT_TYPE">#ACCT_ATT_TYPE</column>
+            <column name="BASE_ACCT_NO">T(Tools).BaseAcctNoEncrypt(#_BASE_ACCT_NO)</column>
+            <column name="PWD_TYPE">'WD'</column>
+            <column name="PASSWORD">'111111'</column>
+            <column name="DB_RULE_FLAG">'02'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+
+    <define id="amBankAcct" desc="账户">
+        <table name="AM_BANK_ACCT" connection="[dbs][0]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="BASE_ACCT_NO">'666666884'+T(Tools).pd(#indexW,'L','0',7)+T(Tools).pd(#indexJ,'L','0',2)</column>
+            <column name="ACCT_NAME">#_ACCT_NAME</column>
+            <column name="BANK_FLAG">'01'</column>
+            <column name="BANK_CODE">'323551000015'</column>
+            <column name="ACCT_CD_TYPE">'01'</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="COMPANY">'BODC'</column>
+        </table>
+    </define>
+    <!-- 机构与柜员-->
+	<!--<block id='BR1' desc="机构/柜员">
+		<for start="1" end="400" index="index" thread="10" commit="400">
+			<define ref="fm_branch"/>
+			<for start="1" end="20" index="indexK">
+				<define ref="fm_user"/>
+			</for>
+		</for>
+	</block>-->
+    <!--创建用户、II类户、VA 1000w-->
+    <block id='openAcct' desc="开户">
+        <for start="1" end="1000" index="indexW" thread="4" commit="500">
+            <define ref="umParticipantUser"/> 
+            <define ref="umLocalUser"/> 
+            <define ref="umUiaInfo"/> 
+	    <for start="1" end="1" index="indexJ">
+	    	<const name="ACCT_ATT_TYPE" value="02" desc="账户类别"/>
+	    	<define ref="eaAcct"/>
+	    	<define ref="eaIntDetail"/>
+	    	<define ref="eaAcctBalance"/>
+	    	<define ref="amRelAcctAcct"/>
+	    	<define ref="amPassword"/>
+	    	<define ref="amPasswordEncrypt"/>
+	    	<define ref="amBankAcct"/>
+	    </for>
+	    <for start="1" end="1" index="indexK">
+                <const name="ACCT_ATT_TYPE" value="06" desc="账户类别"/>
+	    	<define ref="vaAcct"/>
+	    	<define ref="vaIntDetail"/>
+	    	<define ref="vaAcctBalance"/>
+		<define ref="amRelAcctAcct"/>
+		<define ref="amPassword"/>
+		<define ref="amPasswordEncrypt"/>
+	    	<define ref="amBankAcct"/>
+	    </for>
+        </for>
+    </block>
+	
+   <!-- <block id='INNERACCT' desc="内部账">
+        <for start="1" end="1" index="indexW" thread="8" commit="100">
+            <const name="clientPrefix" value="1016" desc="客户号前缀"/>
+            <const name="clientType" value="04" desc="客户类型"/>
+            <const name="acctInd" value="01" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="34002" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+            <for start="1" end="1" index="indexJ">   &lt;!&ndash; 内部账户 人民币 &ndash;&gt;
+                <const name="acctSeqNo" value="1" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="34002" desc="产品类型"/>
+                <const name="glType" value="I" desc="账户类型"></const>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="acct"/>
+                <define ref="relation"/>&lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>-->
+    
+    <!--个人活期 外币 -->
+    <!--<block id='ACCT2' desc="个人活期外币">
+        <for start="1" end="50000" index="indexW" thread="40" commit="1000">
+            <const name="clientPrefix" value="1012" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11002" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="USD" desc="外币"/>
+            <define ref="client"/>
+            <for start="1" end="2" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="1" desc="序号"/>
+                <const name="leadAcctFlag" value="N" desc="主账户标识"/>
+                <const name="prodType" value="11002" desc="产品类型"/>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="acct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+                <for start="1" end="1" index="indexMain">
+                    <define ref="card"/>&lt;!&ndash; card &ndash;&gt;
+                    <define ref="mainAcct"/>&lt;!&ndash; main acct&ndash;&gt;
+                    <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+                </for>
+            </for>
+        </for>
+    </block>
+
+    &lt;!&ndash;个人定期 人民币&ndash;&gt;
+    <block id='ACCT3' desc="个人定期人民币">
+        <for start="1" end="40000" index="indexW" thread="40" commit="1000">
+            <const name="clientPrefix" value="1013" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11021" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+			<const name="acctOpenDate" value="20170620" desc="开户日期"/>
+            &lt;!&ndash; &ndash;&gt;
+            <define ref="client"/>
+            <for start="1" end="2" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="1" desc="序号"/>
+                <const name="leadAcctFlag" value="N" desc="主账户标识"/>
+                <const name="prodType" value="11021" desc="产品类型"/>
+                &lt;!&ndash;定期需要增加参数 &ndash;&gt;
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20170920"></const>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="tdAcct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+                <for start="1" end="1" index="indexMain">
+                    <define ref="card"/>&lt;!&ndash; card &ndash;&gt;
+                    <define ref="mainAcct"/>&lt;!&ndash; main acct&ndash;&gt;
+                    <define ref="relation"/> &lt;!&ndash; acct and card relation  垂直库 &ndash;&gt;
+                </for>
+            </for>
+        </for>
+    </block>
+    &lt;!&ndash;个人定期 外币&ndash;&gt;
+    <block id='ACCT4' desc="个人定期外币">
+        <for start="1" end="10000" index="indexW" thread="50" commit="1000">
+            <const name="clientPrefix" value="1014" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11018" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="USD" desc="外币"/>
+			<const name="acctOpenDate" value="20170620" desc="开户日期"/>
+            <define ref="client"/>
+            <for start="1" end="2" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="1" desc="序号"/>
+                <const name="leadAcctFlag" value="N" desc="主账户标识"/>
+                <const name="prodType" value="11018" desc="产品类型"/>
+                &lt;!&ndash;定期需要增加参数 &ndash;&gt;
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20170920"></const>
+                &lt;!&ndash; &ndash;&gt;
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="tdAcct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+                <for start="1" end="1" index="indexMain">
+                    <define ref="card"/>&lt;!&ndash; card &ndash;&gt;
+                    <define ref="mainAcct"/>&lt;!&ndash; main acct&ndash;&gt;
+                    <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+                </for>
+            </for>
+        </for>
+    </block>
+    &lt;!&ndash;对公定期 人民币&ndash;&gt;
+    <block id='ACCT5' desc="对公定期人民币">
+        <for start="1" end="2000" index="indexW" thread="50" commit="1000">
+            <const name="clientPrefix" value="1015" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12006" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+			<const name="acctOpenDate" value="20170620" desc="开户日期"/>
+            <define ref="client"/>
+            <for start="1" end="2" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12006" desc="产品类型"/>
+                &lt;!&ndash;定期需要增加参数 &ndash;&gt;
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20170920"></const>
+                &lt;!&ndash; &ndash;&gt;
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="tdAcct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>
+
+    &lt;!&ndash;个人定期 外币&ndash;&gt;
+    <block id='ACCT6' desc="对公定期外币">
+        <for start="1" end="5000" index="indexW" thread="50" commit="1000">
+            <const name="clientPrefix" value="1016" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12012" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="USD" desc="外币"/>
+			<const name="acctOpenDate" value="20170620" desc="开户日期"/>
+            <define ref="client"/>
+            <for start="1" end="20" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12012" desc="产品类型"/>
+                &lt;!&ndash;定期需要增加参数 &ndash;&gt;
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20170920"></const>
+                &lt;!&ndash; &ndash;&gt;
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="tdAcct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>
+    &lt;!&ndash;对公活期 人民币&ndash;&gt;
+    <block id='ACCT7' desc="对公活期人民币">
+        <for start="1" end="5000" index="indexW" thread="8" commit="100">
+            <const name="clientPrefix" value="1017" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12001" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+            <for start="1" end="20" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12001" desc="产品类型"/>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="acct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>
+
+    &lt;!&ndash;对公活期外币&ndash;&gt;
+    <block id='ACCT8' desc="对公活期外币">
+        <for start="1" end="5000" index="indexW" thread="50" commit="1000">
+            <const name="clientPrefix" value="1018" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12003" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="USD" desc="外币"/>
+            <define ref="client"/>
+            <for start="1" end="20" index="indexJ">   &lt;!&ndash; 个人活期 外币 &ndash;&gt;
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12003" desc="产品类型"/>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="acct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>
+
+    &lt;!&ndash;保证金账户&ndash;&gt;
+    <block id='ACCT9' desc="保证金账户">
+        <for start="1" end="5000" index="indexW" thread="5" commit="100">
+            <const name="clientPrefix" value="1019" desc="客户号前缀"/>
+            <const name="clientType" value="10" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11051" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+            <for start="1" end="200" index="indexJ">   &lt;!&ndash; 保证金账户人民币 &ndash;&gt;
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="11051" desc="产品类型"/>
+                &lt;!&ndash;sub acct&ndash;&gt;
+                <define ref="acct"/>
+                <define ref="relation"/> &lt;!&ndash; acct and card relation &ndash;&gt;
+            </for>
+        </for>
+    </block>-->
+</import>

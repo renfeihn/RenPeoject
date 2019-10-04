@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<import id="createData" desc="造数:九江">
+    <dbs>
+
+        <db id="level1">
+            <url><![CDATA[jdbc:oracle:thin:@10.106.8.15:1521:jjxn]]></url>
+            <username>FAT_UPRIGHT</username>
+            <password>1q2w3e4r</password>
+            <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+        </db>
+        <db id="level2">
+            <url><![CDATA[jdbc:oracle:thin:@10.106.8.15:1521:jjxn]]></url>
+            <username>FAT_UPRIGHT</username>
+            <password>1q2w3e4r</password>
+            <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+        </db>
+        <db id="upright">
+            <url><![CDATA[jdbc:oracle:thin:@10.106.8.15:1521:jjxn]]></url>
+            <username>FAT_UPRIGHT</username>
+            <password>1q2w3e4r</password>
+            <driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+        </db>
+
+    </dbs>
+    <sequences>
+        <seq name="INTERNAL_KEY" initValue="1000000000"/>
+        <seq name="SUB_INTERNAL_KEY" initValue="2000000000"/>
+        <seq name="mbTranHist_seqNo" initValue="1000000000"/>
+        <seq name="CLIENT_KEY" initValue="10"/>
+        <seq name="USER_KEY" initValue="8100"/>
+        <seq name="IRL_SQL_NO" initValue="1000"/>
+    </sequences>
+    <truncate>
+    <!--<table name="batch_gl_post" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="batch_gl_post_hist" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="batch_gl_tran_hist" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="batch_gl_tran_hist1" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_accr_info_main" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_accr_info_split" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_capt_info" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_capt_rate_info" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_gl_info" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_int_split" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_int_split_hist" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_int_split_rate" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="irl_int_split_rate_hist" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!-- <table name="cd_card_arch" condition=" where 1=1" connection="[dbs][0]"/> -->
+    <!--<table name="mb_acct_attach" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="mb_acct_event_register" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="mb_acct_settle" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="mb_invoice" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="mb_tran_hist" condition=" where 1=1" connection="[dbs][0]"/>-->
+    <!--<table name="fm_acct_client_relation" connection="[dbs][1]"/>-->
+
+<!--     <table name="fm_branch" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="fm_user" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="cif_client" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="cif_client_document" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="mb_acct" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="mb_acct_balance" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="mb_acct_int_detail" condition=" where 1=1" connection="[dbs][0]"/>
+    <table name="mb_acct_int_detail_split" condition=" where 1=1" connection="[dbs][0]"/> -->
+
+    </truncate>
+    <const name="acctPostfix" value="00000000" desc="账号后缀"/>
+    <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+    <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+    <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+    <!--<const name="acctOpenDate" value="20170101" desc="开户日"/>-->
+    <const name="nextCycleDate" value="20181221" desc="下一结息日"/>
+    <const name="lastCycleDate" value="20180921" desc="上一结息日"/>
+    <const name="lastChangeDate" value="20180620" desc="最后一次修改日期"/>
+    <!-- <const name="clientType" value="10" desc="客户类型"/> -->
+    <const name="categoryType" value="101" desc=""/>
+    <const name="expiryDate" value="20500320" desc="失效日"/>
+    <!-- <const name="prodType" value="RB8001000001" desc="产品类型"/> -->
+    <const name="branch" value="00000" desc="默认分行"/>
+    <const name="userId" value="10000" desc="默认柜员"/>
+    <const name="acctType" value="C" desc="账户类型"/>
+    <const name="cycleFreq" value="3M" desc="结息频率"/>
+    <const name="intDay" value="21" desc="结息日"/>
+    <const name="visaFLag" value="Y" desc="visa标识"/>
+    <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+
+    <list name="BRANCHS" desc="机构">
+        <item value="0001"/>
+        <item value="0002"/>
+        <item value="0003"/>
+        <item value="0004"/>
+        <item value="0005"/>
+        <item value="0006"/>
+        <item value="0007"/>
+        <item value="0008"/>
+        <item value="0009"/>
+        <item value="0010"/>
+        <item value="0011"/>
+        <item value="0012"/>
+        <item value="0013"/>
+        <item value="0014"/>
+        <item value="0015"/>
+        <item value="0016"/>
+        <item value="0017"/>
+        <item value="0018"/>
+        <item value="0019"/>
+        <item value="0020"/>
+        <item value="0021"/>
+        <item value="0022"/>
+        <item value="0023"/>
+        <item value="0024"/>
+        <item value="0025"/>
+        <item value="0026"/>
+        <item value="0027"/>
+        <item value="0028"/>
+        <item value="0029"/>
+        <item value="0030"/>
+        <item value="0031"/>
+        <item value="0032"/>
+        <item value="0033"/>
+        <item value="0034"/>
+        <item value="0035"/>
+        <item value="0036"/>
+        <item value="0037"/>
+        <item value="0038"/>
+        <item value="0039"/>
+        <item value="0040"/>
+        <item value="0041"/>
+        <item value="0042"/>
+        <item value="0043"/>
+        <item value="0044"/>
+        <item value="0045"/>
+        <item value="0046"/>
+        <item value="0047"/>
+        <item value="0048"/>
+        <item value="0049"/>
+        <item value="0050"/>
+        <item value="0051"/>
+        <item value="0052"/>
+        <item value="0053"/>
+        <item value="0054"/>
+        <item value="0055"/>
+        <item value="0056"/>
+        <item value="0057"/>
+        <item value="0058"/>
+        <item value="0059"/>
+        <item value="0060"/>
+        <item value="0061"/>
+        <item value="0062"/>
+        <item value="0063"/>
+        <item value="0064"/>
+        <item value="0065"/>
+        <item value="0066"/>
+        <item value="0067"/>
+        <item value="0068"/>
+        <item value="0069"/>
+        <item value="0070"/>
+        <item value="0071"/>
+        <item value="0072"/>
+        <item value="0073"/>
+        <item value="0074"/>
+        <item value="0075"/>
+        <item value="0076"/>
+        <item value="0077"/>
+        <item value="0078"/>
+        <item value="0079"/>
+        <item value="0080"/>
+        <item value="0081"/>
+        <item value="0082"/>
+        <item value="0083"/>
+        <item value="0084"/>
+        <item value="0085"/>
+        <item value="0086"/>
+        <item value="0087"/>
+        <item value="0088"/>
+        <item value="0089"/>
+        <item value="0090"/>
+        <item value="0091"/>
+        <item value="0092"/>
+        <item value="0093"/>
+        <item value="0094"/>
+        <item value="0095"/>
+        <item value="0096"/>
+        <item value="0097"/>
+        <item value="0098"/>
+        <item value="0099"/>
+        <item value="0100"/>
+        <item value="0101"/>
+        <item value="0102"/>
+        <item value="0103"/>
+        <item value="0104"/>
+        <item value="0105"/>
+        <item value="0106"/>
+        <item value="0107"/>
+        <item value="0108"/>
+        <item value="0109"/>
+        <item value="0110"/>
+        <item value="0111"/>
+        <item value="0112"/>
+        <item value="0113"/>
+        <item value="0114"/>
+        <item value="0115"/>
+        <item value="0116"/>
+        <item value="0117"/>
+        <item value="0118"/>
+        <item value="0119"/>
+        <item value="0120"/>
+        <item value="0121"/>
+        <item value="0122"/>
+        <item value="0123"/>
+        <item value="0124"/>
+        <item value="0125"/>
+        <item value="0126"/>
+        <item value="0127"/>
+        <item value="0128"/>
+        <item value="0129"/>
+        <item value="0130"/>
+        <item value="0131"/>
+        <item value="0132"/>
+        <item value="0133"/>
+        <item value="0134"/>
+        <item value="0135"/>
+        <item value="0136"/>
+        <item value="0137"/>
+        <item value="0138"/>
+        <item value="0139"/>
+        <item value="0140"/>
+        <item value="0141"/>
+        <item value="0142"/>
+        <item value="0143"/>
+        <item value="0144"/>
+        <item value="0145"/>
+        <item value="0146"/>
+        <item value="0147"/>
+        <item value="0148"/>
+        <item value="0149"/>
+        <item value="0150"/>
+        <item value="0151"/>
+        <item value="0152"/>
+        <item value="0153"/>
+        <item value="0154"/>
+        <item value="0155"/>
+        <item value="0156"/>
+        <item value="0157"/>
+        <item value="0158"/>
+        <item value="0159"/>
+        <item value="0160"/>
+        <item value="0161"/>
+        <item value="0162"/>
+        <item value="0163"/>
+        <item value="0164"/>
+        <item value="0165"/>
+        <item value="0166"/>
+        <item value="0167"/>
+        <item value="0168"/>
+        <item value="0169"/>
+        <item value="0170"/>
+        <item value="0171"/>
+        <item value="0172"/>
+        <item value="0173"/>
+        <item value="0174"/>
+        <item value="0175"/>
+        <item value="0176"/>
+        <item value="0177"/>
+        <item value="0178"/>
+        <item value="0179"/>
+        <item value="0180"/>
+        <item value="0181"/>
+        <item value="0182"/>
+        <item value="0183"/>
+        <item value="0184"/>
+        <item value="0185"/>
+        <item value="0186"/>
+        <item value="0187"/>
+        <item value="0188"/>
+        <item value="0189"/>
+        <item value="0190"/>
+        <item value="0191"/>
+        <item value="0192"/>
+        <item value="0193"/>
+        <item value="0194"/>
+        <item value="0195"/>
+        <item value="0196"/>
+        <item value="0197"/>
+        <item value="0198"/>
+        <item value="0199"/>
+        <item value="0200"/>
+        <item value="0201"/>
+        <item value="0202"/>
+        <item value="0203"/>
+        <item value="0204"/>
+        <item value="0205"/>
+        <item value="0206"/>
+        <item value="0207"/>
+        <item value="0208"/>
+        <item value="0209"/>
+        <item value="0210"/>
+        <item value="0211"/>
+        <item value="0212"/>
+        <item value="0213"/>
+        <item value="0214"/>
+        <item value="0215"/>
+        <item value="0216"/>
+        <item value="0217"/>
+        <item value="0218"/>
+        <item value="0219"/>
+        <item value="0220"/>
+        <item value="0221"/>
+        <item value="0222"/>
+        <item value="0223"/>
+        <item value="0224"/>
+        <item value="0225"/>
+        <item value="0226"/>
+        <item value="0227"/>
+        <item value="0228"/>
+        <item value="0229"/>
+        <item value="0230"/>
+        <item value="0231"/>
+        <item value="0232"/>
+        <item value="0233"/>
+        <item value="0234"/>
+        <item value="0235"/>
+        <item value="0236"/>
+        <item value="0237"/>
+        <item value="0238"/>
+        <item value="0239"/>
+        <item value="0240"/>
+        <item value="0241"/>
+        <item value="0242"/>
+        <item value="0243"/>
+        <item value="0244"/>
+        <item value="0245"/>
+        <item value="0246"/>
+        <item value="0247"/>
+        <item value="0248"/>
+        <item value="0249"/>
+        <item value="0250"/>
+        <item value="0251"/>
+        <item value="0252"/>
+        <item value="0253"/>
+        <item value="0254"/>
+        <item value="0255"/>
+        <item value="0256"/>
+        <item value="0257"/>
+        <item value="0258"/>
+        <item value="0259"/>
+        <item value="0260"/>
+        <item value="0261"/>
+        <item value="0262"/>
+        <item value="0263"/>
+        <item value="0264"/>
+        <item value="0265"/>
+        <item value="0266"/>
+        <item value="0267"/>
+        <item value="0268"/>
+        <item value="0269"/>
+        <item value="0270"/>
+        <item value="0271"/>
+        <item value="0272"/>
+        <item value="0273"/>
+        <item value="0274"/>
+        <item value="0275"/>
+        <item value="0276"/>
+        <item value="0277"/>
+        <item value="0278"/>
+        <item value="0279"/>
+        <item value="0280"/>
+        <item value="0281"/>
+        <item value="0282"/>
+        <item value="0283"/>
+        <item value="0284"/>
+        <item value="0285"/>
+        <item value="0286"/>
+        <item value="0287"/>
+        <item value="0288"/>
+        <item value="0289"/>
+        <item value="0290"/>
+        <item value="0291"/>
+        <item value="0292"/>
+        <item value="0293"/>
+        <item value="0294"/>
+        <item value="0295"/>
+        <item value="0296"/>
+        <item value="0297"/>
+        <item value="0298"/>
+        <item value="0299"/>
+        <item value="0300"/>
+        <item value="0301"/>
+        <item value="0302"/>
+        <item value="0303"/>
+        <item value="0304"/>
+        <item value="0305"/>
+        <item value="0306"/>
+        <item value="0307"/>
+        <item value="0308"/>
+        <item value="0309"/>
+        <item value="0310"/>
+        <item value="0311"/>
+        <item value="0312"/>
+        <item value="0313"/>
+        <item value="0314"/>
+        <item value="0315"/>
+        <item value="0316"/>
+        <item value="0317"/>
+        <item value="0318"/>
+        <item value="0319"/>
+        <item value="0320"/>
+        <item value="0321"/>
+        <item value="0322"/>
+        <item value="0323"/>
+        <item value="0324"/>
+        <item value="0325"/>
+        <item value="0326"/>
+        <item value="0327"/>
+        <item value="0328"/>
+        <item value="0329"/>
+        <item value="0330"/>
+        <item value="0331"/>
+        <item value="0332"/>
+        <item value="0333"/>
+        <item value="0334"/>
+        <item value="0335"/>
+        <item value="0336"/>
+        <item value="0337"/>
+        <item value="0338"/>
+        <item value="0339"/>
+        <item value="0340"/>
+        <item value="0341"/>
+        <item value="0342"/>
+        <item value="0343"/>
+        <item value="0344"/>
+        <item value="0345"/>
+        <item value="0346"/>
+        <item value="0347"/>
+        <item value="0348"/>
+        <item value="0349"/>
+        <item value="0350"/>
+        <item value="0351"/>
+        <item value="0352"/>
+        <item value="0353"/>
+        <item value="0354"/>
+        <item value="0355"/>
+        <item value="0356"/>
+        <item value="0357"/>
+        <item value="0358"/>
+        <item value="0359"/>
+        <item value="0360"/>
+        <item value="0361"/>
+        <item value="0362"/>
+        <item value="0363"/>
+        <item value="0364"/>
+        <item value="0365"/>
+        <item value="0366"/>
+        <item value="0367"/>
+        <item value="0368"/>
+        <item value="0369"/>
+        <item value="0370"/>
+        <item value="0371"/>
+        <item value="0372"/>
+        <item value="0373"/>
+        <item value="0374"/>
+        <item value="0375"/>
+        <item value="0376"/>
+        <item value="0377"/>
+        <item value="0378"/>
+        <item value="0379"/>
+        <item value="0380"/>
+        <item value="0381"/>
+        <item value="0382"/>
+        <item value="0383"/>
+        <item value="0384"/>
+        <item value="0385"/>
+        <item value="0386"/>
+        <item value="0387"/>
+        <item value="0388"/>
+        <item value="0389"/>
+        <item value="0390"/>
+        <item value="0391"/>
+        <item value="0392"/>
+        <item value="0393"/>
+        <item value="0394"/>
+        <item value="0395"/>
+        <item value="0396"/>
+        <item value="0397"/>
+        <item value="0398"/>
+        <item value="0399"/>
+        <item value="0400"/>
+    </list>
+
+
+    <!--开户日期分布于2017-10-01至2018-09-20 -->
+    <list name="openDate" desc="开户日期">
+        <item value="20171001"/>
+        <item value="20171201"/>
+        <item value="20180101"/>
+        <item value="20180201"/>
+        <item value="20180401"/>
+        <item value="20180501"/>
+        <item value="20180601"/>
+        <item value="20180701"/>
+        <item value="20180801"/>
+        <item value="20180920"/>
+    </list>
+    <list name="branchName" desc="机构名称">
+        <item value="测试机构1"/>
+        <item value="测试机构2"/>
+        <item value="测试机构3"/>
+        <item value="测试机构4"/>
+        <item value="测试机构5"/>
+        <item value="测试机构6"/>
+    </list>
+
+    <define id="fm_branch_head" desc="总行机构">
+        <table name="fm_branch" connection="[dbs][2]">
+            <column name="BRANCH">'00000'</column>
+            <column name="BRANCH_NAME">'总行'</column>
+            <column name="BRANCH_SHORT">'总行'</column>
+            <column name="HIERARCHY_CODE">'1'</column>
+            <column name="ATTACHED_TO">''</column>
+            <column name="INTERNAL_CLIENT">'1'</column>
+            <column name="LOCAL_CCY">'1'</column>
+            <column name="BASE_CCY">'1'</column>
+            <column name="PROFIT_CENTRE">'1'</column>
+            <column name="COUNTRY">'1'</column>
+            <column name="STATE">'1'</column>
+            <column name="CITY">'1'</column>
+            <column name="DISTRICT">'1'</column>
+            <column name="POSTAL_CODE">'1'</column>
+            <column name="CHEQUE_ISSUING_BRANCH">'1'</column>
+            <column name="TRAN_BR_IND">'1'</column>
+            <column name="CNY_BUSINESS_UNIT">'1'</column>
+            <column name="HKD_BUSINESS_UNIT">'1'</column>
+            <column name="FX_ORGAN_CODE">'1'</column>
+            <column name="PBOC_FUND_CHECK_FALG">'1'</column>
+            <column name="EOD_IND">'1'</column>
+            <column name="STATUS">'1'</column>
+            <column name="IP_ADDR">'1'</column>
+            <column name="COMPANY">'1'</column>
+            <column name="FTA_FLAG">'1'</column>
+        </table>
+    </define>
+
+    <define id="fm_branch" desc="机构">
+        <table name="fm_branch" connection="[dbs][2]">
+            <column name="BRANCH">T(Tools).pd(#index,'L','0',4)</column>
+            <column name="BRANCH_NAME">#branchName[T(Tools).rand(#branchName.size())]</column>
+            <column name="BRANCH_SHORT">'测试机构'</column>
+            <column name="HIERARCHY_CODE">'1'</column>
+            <column name="ATTACHED_TO">'00000'</column>
+            <column name="INTERNAL_CLIENT">'1'</column>
+            <column name="LOCAL_CCY">'1'</column>
+            <column name="BASE_CCY">'1'</column>
+            <column name="PROFIT_CENTRE">'1'</column>
+            <column name="COUNTRY">'1'</column>
+            <column name="STATE">'1'</column>
+            <column name="CITY">'1'</column>
+            <column name="DISTRICT">'1'</column>
+            <column name="POSTAL_CODE">'1'</column>
+            <column name="CHEQUE_ISSUING_BRANCH">'1'</column>
+            <column name="TRAN_BR_IND">'1'</column>
+            <column name="CNY_BUSINESS_UNIT">'1'</column>
+            <column name="HKD_BUSINESS_UNIT">'1'</column>
+            <column name="FX_ORGAN_CODE">'1'</column>
+            <column name="PBOC_FUND_CHECK_FALG">'1'</column>
+            <column name="EOD_IND">'1'</column>
+            <column name="STATUS">'1'</column>
+            <column name="IP_ADDR">'1'</column>
+            <column name="COMPANY">'1'</column>
+            <column name="FTA_FLAG">'1'</column>
+        </table>
+    </define>
+    <define id="fm_user" desc="柜员">
+        <table name="fm_user" connection="[dbs][2]">
+            <!--<column name="USER_ID">'user'+#indexK+#index</column>-->
+            <column name="USER_ID">T(Tools).getSeqNo('USER_KEY')</column>
+            <column name="USER_NAME">'1'</column>
+            <column name="DOCUMENT_TYPE">'1'</column>
+            <column name="DOCUMENT_ID">'1'</column>
+            <column name="USER_LEVEL">'1'</column>
+            <column name="BRANCH">T(Tools).pd(#index,'L','0',4)</column>
+            <column name="DEPARTMENT">'1'</column>
+            <column name="USER_LANG">'1'</column>
+            <column name="ACCT_EXEC">'1'</column>
+            <column name="TBOOK">'1'</column>
+            <column name="PROFIT_CENTRE">'1'</column>
+            <column name="APPLICATION_USER">'1'</column>
+            <column name="EOD_SOD_ENABLED">'1'</column>
+            <column name="ACCOUNT_STATUS">'1'</column>
+            <column name="USER_TYPE">'1'</column>
+            <column name="INTER_BRANCH_IND">'1'</column>
+            <column name="INTER_BRANCH_CL">'1'</column>
+        </table>
+    </define>
+
+    <define id="client" desc="客户定义">
+        <table name="cif_client" connection="[dbs][#indexW%2]">
+            <column name="CLIENT_KEY">#clientPrefix + T(Tools).pd(#indexW,'L','0',8)+#indexW%2</column>
+            <column name="CLIENT_NO">#_CLIENT_KEY</column>
+            <column name="CLIENT_TYPE">#clientType</column>
+            <column name="CATEGORY_TYPE">#categoryType</column>
+            <column name="CLIENT_SHORT">#clientShortPrefix+#indexW</column>
+            <column name="CH_CLIENT_NAME">#chClientNamePrefix+#indexW</column>
+            <column name="CLIENT_NAME">#clientNamePrefix+#indexW</column>
+            <column name="COUNTRY_LOC">'CHN'</column>
+            <column name="STATE_LOC">'61'</column>
+            <column name="COUNTRY_CITIZEN">'CHN'</column>
+            <column name="COUNTRY_RISK">'CHN'</column>
+            <column name="INTERNAL_IND">'N'</column>
+            <column name="TAXABLE_IND">'N'</column>
+            <column name="CLIENT_STATUS">'1'</column>
+            <column name="TRAN_STATUS">'A'</column>
+            <column name="CLIENT_INDICATOR">'N'</column>
+            <column name="INLAND_OFFSHORE">'I'</column>
+            <column name="TEMP_CLIENT">'Y'</column>
+            <column name="PEP_IND">'N'</column>
+            <column name="INFO_LACK">'N'</column>
+            <column name="CLASS_LEVEL">'01'</column>
+            <column name="CREATION_USER_ID">#userId</column>
+            <column name="CREATION_DATE">'20160103'</column>
+            <column name="ROUTER_KEY">#_CLIENT_KEY</column>
+            <column name="IS_FORMAL">'N'</column>
+            <column name="CTRL_BRANCH">#branch</column>
+        </table>
+        <table name="cif_client_document" connection="[dbs][#indexW%2]">
+            <column name="CLIENT_NO">#_CLIENT_KEY</column>
+            <column name="DOCUMENT_TYPE">'106'</column>
+            <column name="DOCUMENT_ID">T(Tools).pd(#_CLIENT_KEY,'L','0',18)</column>
+            <column name="PREF_FLAG">'Y'</column>
+            <column name="ISS_COUNTRY">'CHN'</column>
+            <column name="ROUTER_KEY">#_CLIENT_KEY</column>
+            <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+            <column name="ISS_STATE">'61'</column>
+            <column name="ISS_DATE">'19920101'</column>
+            <column name="EXPIRY_DATE">#expiryDate</column>
+            <column name="DIST_CODE">'110115'</column>
+            <column name="INSPECT_DATE">'20170218'</column>
+        </table>
+    </define>
+    <define id="card" desc="卡号定义">
+        <table name="cd_card_arch" connection="[dbs][#indexW%2]">
+            <column name="CARD_NO">'622126'+ T(Tools).pd(#indexMain,'R','0',3)+#_INTERNAL_KEY</column>
+            <column name="CLIENT_NO">#_CLIENT_NO</column>
+            <column name="PROD_TYPE">'11041'</column>
+            <column name="CARD_STATUS">'3'</column>
+            <column name="LOST_STATUS">'0'</column>
+            <column name="BRANCH">#_BRANCH</column>
+            <column name="APP_FLAG">'N'</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="VALID_FROM_DATE">'20160101'</column>
+            <column name="VALID_THRU_DATE">'20491231'</column>
+            <column name="APPLY_USER_ID">#userId</column>
+            <column name="ISSUE_USER_ID">#userId</column>
+            <column name="ISSUE_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="CHANGE_CARD_NUM">'0'</column>
+            <column name="IS_SIGN_FLAG">'0'</column>
+            <column name="CARD_MEDIUM">'0'</column>
+            <column name="ACCT_SEQ_NO">'0'</column>
+        </table>
+    </define>
+    <define id="relation" desc="索引关系"><!-- 垂直库 -->
+        <table name="fm_acct_client_relation" connection="[dbs][2]">
+            <column name="CLIENT_NO">#_CLIENT_NO</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="CARD_NO">#_CARD_NO</column>
+            <column name="BRANCH">#branch</column>
+        </table>
+    </define>
+    <define id="mainAcct" desc="账户定义">
+        <table name="mb_acct" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">T(Tools).getSeqNo('SUB_INTERNAL_KEY')</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="CARD_NO">#_CARD_NO</column>
+            <column name="PROD_TYPE">'11041'</column>
+            <column name="CCY">#ccy</column>
+            <column name="ACCT_SEQ_NO">'0'</column>
+            <column name="BRANCH">#_BRANCH</column>
+            <column name="CLIENT_NO">#_CLIENT_KEY</column>
+            <column name="ACCT_OPEN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="OPEN_TRAN_DATE">#_OPEN_TRAN_DATE</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="ACCT_STATUS_PREV">'N'</column>
+            <column name="ACCOUNTING_STATUS">'ZHC'</column>
+            <column name="ACCOUNTING_STATUS_PREV">'ZHC'</column>
+            <column name="ACCT_NAME">#acctNamePrefix+#indexJ</column>
+            <column name="ACCT_NATURE">'1'</column>
+            <column name="OWNERSHIP_TYPE">'SG'</column>
+            <column name="ACCT_EXEC">'0201'</column>
+            <column name="ALL_DEP_IND">'Y'</column>
+            <column name="ALL_DRA_IND">'Y'</column>
+            <column name="LEAD_ACCT_FLAG">'Y'</column>
+            <column name="MULTI_BAL_TYPE">'N'</column>
+            <column name="OSA_FLAG">'I'</column>
+            <column name="REGION_FLAG">'I'</column>
+            <!--<column name="TERM"></column>-->
+            <!--<column name="TERM_TYPE"></column>-->
+            <!--<column name="MATURITY_DATE"></column>-->
+            <column name="APPLY_BRANCH">#_BRANCH</column>
+            <column name="HOME_BRANCH">#_BRANCH</column>
+            <column name="USER_ID">#userId</column>
+            <column name="LAST_CHANGE_USER_ID">#userId</column>
+            <column name="LAST_CHANGE_DATE">#_OPEN_TRAN_DATE</column>
+            <column name="ORIG_ACCT_OPEN_DATE">#_OPEN_TRAN_DATE</column>
+            <column name="ACCT_VERIFICATION_IND">'N'</column>
+            <column name="DAC_VALUE">'EF827C6364D7B6DC8DE72AAFD72E04CE'</column>
+            <column name="SETTLE">'Y'</column>
+            <column name="APPROVAL_STATUS">'Y'</column>
+            <column name="SCHED_MODE">''</column>
+            <column name="SOURCE_TYPE">'MT'</column>
+            <column name="SOURCE_MODULE">'RB'</column>
+            <column name="CLIENT_TYPE">#clientType</column>
+            <column name="AUTO_SETTLE">'N'</column>
+            <column name="INT_IND">'Y'</column>
+            <column name="MAIN_BAL_FLAG">'Y'</column>
+            <column name="MAIN_INT_FLAG">'Y'</column>
+            <column name="ACCT_REAL_FLAG">'Y'</column>
+            <column name="ACCT_CLASS">#acctClass</column>
+            <column name="ACCT_TYPE">#acctType</column>
+            <column name="LAST_TRAN_DATE">#_OPEN_TRAN_DATE</column>
+            <!--<column name="AUTO_RENEW_ROLLOVER"></column>-->
+            <!--<column name="ROLLOVER_NO"></column>-->
+            <!--<column name="FIXED_CALL"></column>-->
+            <!--<column name="REASON_CODE"></column>-->
+            <column name="EFFECT_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <!--<table name="mb_acct_attach" connection="[dbs][#indexW%2]">-->
+        <!--<column name="INTERNAL_KEY">#_INTERNAL_KEY</column>-->
+        <!--<column name="ROUTER_KEY">#_CLIENT_NO</column>-->
+        <!--<column name="ANNUAL_STATUS">'Y'</column>-->
+        <!--</table>-->
+    </define>
+
+    <define id="acct" desc="账户定义">
+        <table name="mb_acct" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">T(Tools).getSeqNo('INTERNAL_KEY')</column>
+            <column name="BASE_ACCT_NO">#_CLIENT_KEY + #acctInd + T(Tools).pd(#indexJ,'L','0',8)</column>
+            <column name="CARD_NO">#_CARD_NO</column>
+            <column name="PROD_TYPE">#prodType</column>
+            <column name="CCY">#ccy</column>
+            <column name="ACCT_SEQ_NO">#acctSeqNo</column>
+            <column name="BRANCH">#BRANCHS[T(Tools).rand(#BRANCHS.size())]</column>
+            <column name="CLIENT_NO">#_CLIENT_KEY</column>
+            <column name="ACCT_OPEN_DATE">#openDate[T(Tools).rand(#openDate.size())]</column>
+            <column name="OPEN_TRAN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="ACCT_STATUS_PREV">'N'</column>
+            <column name="ACCOUNTING_STATUS">'ZHC'</column>
+            <column name="ACCOUNTING_STATUS_PREV">'ZHC'</column>
+            <column name="ACCT_NAME">#acctNamePrefix+#indexJ</column>
+            <column name="ACCT_NATURE">'1'</column>
+            <column name="OWNERSHIP_TYPE">'SG'</column>
+            <column name="ACCT_EXEC">'0201'</column>
+            <column name="ALL_DEP_IND">'Y'</column>
+            <column name="ALL_DRA_IND">'Y'</column>
+            <column name="LEAD_ACCT_FLAG">'N'</column>
+            <column name="MULTI_BAL_TYPE">'N'</column>
+            <column name="OSA_FLAG">'I'</column>
+            <column name="REGION_FLAG">'I'</column>
+            <!--<if test="#prodType='12006'||#prodType='12012||#prodType='11018">-->
+            <column name="TERM">#term</column>
+            <column name="TERM_TYPE">#termType</column>
+            <column name="MATURITY_DATE">#maturityDate</column>
+            <column name="APPLY_BRANCH">#_BRANCH</column>
+            <column name="HOME_BRANCH">#_BRANCH</column>
+            <column name="USER_ID">#userId</column>
+            <column name="LAST_CHANGE_USER_ID">#userId</column>
+            <column name="LAST_CHANGE_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ORIG_ACCT_OPEN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ACCT_VERIFICATION_IND">'N'</column>
+            <column name="DAC_VALUE">'EF827C6364D7B6DC8DE72AAFD72E04CE'</column>
+            <column name="SETTLE">'Y'</column>
+            <column name="APPROVAL_STATUS">'Y'</column>
+            <column name="SCHED_MODE">''</column>
+            <column name="SOURCE_TYPE">'MT'</column>
+            <column name="SOURCE_MODULE">'RB'</column>
+            <column name="CLIENT_TYPE">#clientType</column>
+            <column name="AUTO_SETTLE">'N'</column>
+            <column name="INT_IND">'Y'</column>
+            <column name="MAIN_BAL_FLAG">'Y'</column>
+            <column name="MAIN_INT_FLAG">'Y'</column>
+            <column name="ACCT_REAL_FLAG">'Y'</column>
+            <column name="ACCT_CLASS">#acctClass</column>
+            <column name="ACCT_TYPE">#acctType</column>
+            <column name="LAST_TRAN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="AUTO_RENEW_ROLLOVER">#autorenewrollover</column>
+            <column name="ROLLOVER_NO">#rollvoerNo</column>
+            <column name="FIXED_CALL">#fixedCall</column>
+            <!--<column name="REASON_CODE"></column>-->
+            <column name="EFFECT_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <table name="mb_acct_int_detail_split" connection="[dbs][#indexW%2]">
+            <column name="IRL_SEQ_NO">T(Tools).getSeqNo('IRL_SQL_NO')</column>
+            <column name="SYSTEM_ID">'10'</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="INT_CLASS">'INT'</column>
+            <column name="START_DATE">'20180601'</column>
+            <column name="END_DATE">'20200601'</column>
+            <column name="PERI_SPLIT_ID">'PHQI'</column>
+            <column name="PERI_SEQ_NO">'1'</column>
+            <column name="AMT_SPLIT_ID">'AHQI'</column>
+            <column name="AMT_SEQ_NO">'1'</column>
+            <column name="NEAR_AMT">'0'</column>
+            <column name="ACCR_AMT">'0'</column>
+            <column name="NEAR_PERIOD_TYPE">'0'</column>
+            <column name="NEAR_PERIOD">'0'</column>
+            <column name="ACCR_DAYS">'1'</column>
+            <column name="ACTUAL_RATE">'0.455'</column>
+            <column name="FLOAT_RATE">'0'</column>
+            <column name="REAL_RATE">'0.455'</column>
+            <!--<column name="ACCT_SPREAD_RATE"></column>-->
+            <!--<column name="ACCT_PERCENT_RATE"></column>-->
+            <!--<column name="ACCT_FIXED_RATE"></column>-->
+            <column name="INT_TYPE">'HQI'</column>
+            <!--<column name="AMT_SPLIT_MODE"></column>-->
+            <column name="PERI_SPLIT_MODE">'Q'</column>
+            <column name="YEAR_BASIS">'360'</column>
+            <column name="MONTH_BASIS">'ACT'</column>
+            <!--<column name="RECAL_METHOD"></column>-->
+            <!--<column name="TRAN_TIMESTAMP"></column>-->
+            <!--<column name="TRAN_TIME"></column>-->
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <!--<table name="mb_acct_attach" connection="[dbs][#indexW%2]">-->
+        <!--<column name="INTERNAL_KEY">#_INTERNAL_KEY</column>-->
+        <!--&lt;!&ndash;<column name="GL_CODE"></column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="CONTRA_ACCT_NO"></column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="CONTRA_ACCT_NAME"></column>&ndash;&gt;-->
+        <!--<column name="ROUTER_KEY">#_CLIENT_NO</column>-->
+        <!--&lt;!&ndash;<column name="VISA_FLAG">#visaFLag</column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="BAL_UPD_TYPE"></column>&ndash;&gt;-->
+        <!--<column name="ANNUAL_STATUS">'Y'</column>-->
+        <!--</table>-->
+        <table name="mb_acct_balance" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="AMT_TYPE">'BAL'</column>
+            <column name="TOTAL_AMOUNT">'-10000000000'</column>
+            <column name="CA_AMOUNT">'0.0'</column>
+            <column name="TT_AMOUNT">'0.0'</column>
+            <column name="TOTAL_AMOUNT_PREV">'-10000000000'</column>
+            <column name="CA_AMOUNT_PREV">'0.0'</column>
+            <column name="TT_AMOUNT_PREV">'0.0'</column>
+            <column name="LAST_CHANGE_USER_ID">#userId</column>
+            <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+        </table>
+        <table name="mb_acct_int_detail" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="INT_CLASS">'INT'</column>
+            <column name="NEXT_CYCLE_DATE">#nextCycleDate</column>
+            <column name="CYCLE_FREQ">#cycleFreq</column>
+            <column name="INT_DAY">#intDay</column>
+            <column name="LAST_CYCLE_DATE">#lastCycleDate</column>
+            <column name="INT_TYPE">'HQI'</column>
+            <column name="ACTUAL_RATE">'0.45500000'</column>
+            <column name="REAL_RATE">'0.45500000'</column>
+            <column name="INT_CAP">'Y'</column>
+            <column name="AGG">'0.00'</column>
+            <column name="DAC_VALUE">'A867E573FDC4F1D78FE7CA68C7ED9FB6'</column>
+            <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+            <column name="IS_RETRY">'Y'</column>
+            <column name="IS_CYCLE">'Y'</column>
+            <column name="CALC_BEGIN_DATE">#lastCycleDate</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+            <column name="INT_IND">'Y'</column>
+        </table>
+    </define>
+    <define id="tdAcct" desc="账户定义">
+        <table name="mb_acct" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">T(Tools).getSeqNo('INTERNAL_KEY')</column>
+            <column name="BASE_ACCT_NO">#_CLIENT_KEY + #acctInd + T(Tools).pd(#indexJ,'L','0',8)</column>
+            <column name="CARD_NO">#_CARD_NO</column>
+            <column name="PROD_TYPE">#prodType</column>
+            <column name="CCY">#ccy</column>
+            <column name="ACCT_SEQ_NO">#acctSeqNo</column>
+            <column name="BRANCH">#BRANCHS[T(Tools).rand(#BRANCHS.size())]</column>
+            <column name="CLIENT_NO">#_CLIENT_KEY</column>
+            <column name="ACCT_OPEN_DATE">#acctOpenDate</column>
+            <column name="OPEN_TRAN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ACCT_STATUS">'A'</column>
+            <column name="ACCT_STATUS_PREV">'N'</column>
+            <column name="ACCOUNTING_STATUS">'ZHC'</column>
+            <column name="ACCOUNTING_STATUS_PREV">'ZHC'</column>
+            <column name="ACCT_NAME">#acctNamePrefix+#indexJ</column>
+            <column name="ACCT_NATURE">'1'</column>
+            <column name="OWNERSHIP_TYPE">'SG'</column>
+            <column name="ACCT_EXEC">'0201'</column>
+            <column name="ALL_DEP_IND">'Y'</column>
+            <column name="ALL_DRA_IND">'Y'</column>
+            <column name="LEAD_ACCT_FLAG">'N'</column>
+            <column name="MULTI_BAL_TYPE">'N'</column>
+            <column name="OSA_FLAG">'I'</column>
+            <column name="REGION_FLAG">'I'</column>
+            <!--<if test="#prodType='12006'||#prodType='12012||#prodType='11018">-->
+            <column name="TERM">#term</column>
+            <column name="TERM_TYPE">#termType</column>
+            <column name="MATURITY_DATE">#maturityDate</column>
+            <column name="APPLY_BRANCH">#_BRANCH</column>
+            <column name="HOME_BRANCH">#_BRANCH</column>
+            <column name="USER_ID">#userId</column>
+            <column name="LAST_CHANGE_USER_ID">#userId</column>
+            <column name="LAST_CHANGE_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ORIG_ACCT_OPEN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ACCT_VERIFICATION_IND">'N'</column>
+            <column name="DAC_VALUE">'EF827C6364D7B6DC8DE72AAFD72E04CE'</column>
+            <column name="SETTLE">'Y'</column>
+            <column name="APPROVAL_STATUS">'Y'</column>
+            <column name="SCHED_MODE">''</column>
+            <column name="SOURCE_TYPE">'MT'</column>
+            <column name="SOURCE_MODULE">'RB'</column>
+            <column name="CLIENT_TYPE">#clientType</column>
+            <column name="AUTO_SETTLE">'N'</column>
+            <column name="INT_IND">'Y'</column>
+            <column name="MAIN_BAL_FLAG">'Y'</column>
+            <column name="MAIN_INT_FLAG">'Y'</column>
+            <column name="ACCT_REAL_FLAG">'Y'</column>
+            <column name="ACCT_CLASS">#acctClass</column>
+            <column name="ACCT_TYPE">#acctType</column>
+            <column name="LAST_TRAN_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="AUTO_RENEW_ROLLOVER">#autorenewrollover</column>
+            <column name="ROLLOVER_NO">#rollvoerNo</column>
+            <column name="FIXED_CALL">#fixedCall</column>
+            <!--<column name="REASON_CODE"></column>-->
+            <column name="EFFECT_DATE">#_ACCT_OPEN_DATE</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <table name="mb_acct_int_detail_split" connection="[dbs][#indexW%2]">
+            <column name="IRL_SEQ_NO">T(Tools).getSeqNo('IRL_SQL_NO')</column>
+            <column name="SYSTEM_ID">'10'</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="INT_CLASS">'INT'</column>
+            <column name="START_DATE">'20180601'</column>
+            <column name="END_DATE">'20200601'</column>
+            <column name="PERI_SPLIT_ID">'PHQI'</column>
+            <column name="PERI_SEQ_NO">'1'</column>
+            <column name="AMT_SPLIT_ID">'AHQI'</column>
+            <column name="AMT_SEQ_NO">'1'</column>
+            <column name="NEAR_AMT">'0'</column>
+            <column name="ACCR_AMT">'0'</column>
+            <column name="NEAR_PERIOD_TYPE">'0'</column>
+            <column name="NEAR_PERIOD">'0'</column>
+            <column name="ACCR_DAYS">'1'</column>
+            <column name="ACTUAL_RATE">'1.755'</column>
+            <column name="FLOAT_RATE">'0'</column>
+            <column name="REAL_RATE">'1.755'</column>
+            <!--<column name="ACCT_SPREAD_RATE"></column>-->
+            <!--<column name="ACCT_PERCENT_RATE"></column>-->
+            <!--<column name="ACCT_FIXED_RATE"></column>-->
+            <column name="INT_TYPE">'HQI'</column>
+            <!--<column name="AMT_SPLIT_MODE"></column>-->
+            <column name="PERI_SPLIT_MODE">'Q'</column>
+            <column name="YEAR_BASIS">'360'</column>
+            <column name="MONTH_BASIS">'ACT'</column>
+            <!--<column name="RECAL_METHOD"></column>-->
+            <!--<column name="TRAN_TIMESTAMP"></column>-->
+            <!--<column name="TRAN_TIME"></column>-->
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <!--<table name="mb_acct_attach" connection="[dbs][#indexW%2]">-->
+        <!--<column name="INTERNAL_KEY">#_INTERNAL_KEY</column>-->
+        <!--&lt;!&ndash;<column name="GL_CODE"></column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="CONTRA_ACCT_NO"></column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="CONTRA_ACCT_NAME"></column>&ndash;&gt;-->
+        <!--<column name="ROUTER_KEY">#_CLIENT_NO</column>-->
+        <!--&lt;!&ndash;<column name="VISA_FLAG">#visaFLag</column>&ndash;&gt;-->
+        <!--&lt;!&ndash;<column name="BAL_UPD_TYPE"></column>&ndash;&gt;-->
+        <!--<column name="ANNUAL_STATUS">'Y'</column>-->
+        <!--</table>-->
+        <table name="mb_acct_balance" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="AMT_TYPE">'BAL'</column>
+            <column name="TOTAL_AMOUNT">'-10000000000'</column>
+            <column name="CA_AMOUNT">'0.0'</column>
+            <column name="TT_AMOUNT">'0.0'</column>
+            <column name="TOTAL_AMOUNT_PREV">'-10000000000'</column>
+            <column name="CA_AMOUNT_PREV">'0.0'</column>
+            <column name="TT_AMOUNT_PREV">'0.0'</column>
+            <column name="LAST_CHANGE_USER_ID">#userId</column>
+            <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+            <column name="DAC_VALUE">'0458E9CD99BC6172516DBE4D8AB236DD'</column>
+            <column name="COMPANY">'DCITS'</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+        <table name="mb_acct_int_detail" connection="[dbs][#indexW%2]">
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="INT_CLASS">'INT'</column>
+            <column name="NEXT_CYCLE_DATE">#nextCycleDate</column>
+            <column name="CYCLE_FREQ">#cycleFreq</column>
+            <column name="INT_DAY">#intDay</column>
+            <column name="LAST_CYCLE_DATE">#lastCycleDate</column>
+            <column name="INT_TYPE">'HQI'</column>
+            <column name="ACTUAL_RATE">'1.75500000'</column>
+            <column name="REAL_RATE">'1.75500000'</column>
+            <column name="INT_CAP">'Y'</column>
+            <column name="DAC_VALUE">'A867E573FDC4F1D78FE7CA68C7ED9FB6'</column>
+            <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+            <column name="IS_RETRY">'Y'</column>
+            <column name="IS_CYCLE">'Y'</column>
+            <column name="CALC_BEGIN_DATE">#lastCycleDate</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+            <column name="INT_IND">'Y'</column>
+        </table>
+        <!--
+        <if test="#acctClass=='2'">
+            <table name="mb_acct_settle" connection="[dbs][#indexW%2]">
+                <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+                <column name="SETTLE_NO">'2017021824'</column>
+                <column name="SETTLE_ACCT_CLASS">'REL'</column>
+                <column name="SETTLE_METHOD">'R'</column>
+                <column name="PAY_REC_IND">'PAY'</column>
+                <column name="AMT_TYPE">'REL'</column>
+                <column name="SETTLE_CLIENT">#_CLIENT_KEY</column>
+                <column name="SETTLE_BANK_FLAG">'I'</column>
+                <column name="SETTLE_BANK_NAME">'神州银行总行'</column>
+                <column name="SETTLE_BASE_ACCT_NO">'6222' + T(Tools).pd(#index,'L','0',8) + #acctInd +
+                    T(Tools).pd(#indexJ,'L','0',8)
+                </column>
+                <column name="SETTLE_ACCT_NAME">'SETTLE_ACCT_NAME'</column>
+                <column name="SETTLE_PROD_TYPE">'RB8001000001'</column>
+                <column name="SETTLE_ACCT_CCY">'CNY'</column>
+                <column name="SETTLE_ACCT_SEQ_NO">'0'</column>
+                <column name="TRAN_TIMESTAMP">'20170626142535'</column>
+                <column name="TRAN_TIME">'1498458335'</column>
+                <column name="ROUTER_KEY">#_CLIENT_NO</column>
+                <column name="USER_ID">#userId</column>
+                <column name="LAST_CHANGE_USER_ID">#userId</column>
+                <column name="LAST_CHANGE_DATE">#lastChangeDate</column>
+            </table>
+        </if>
+        -->
+    </define>
+
+    <define id="tranHist" desc="流水定义">
+        <table name="mb_tran_hist" connection="[dbs][#indexW%2]">
+            <column name="SEQ_NO">T(Tools).getSeqNo('mbTranHist_seqNo')</column>
+            <column name="CHANNEL_SEQ_NO">#_SEQ_NO</column>
+            <column name="INTERNAL_KEY">#_INTERNAL_KEY</column>
+            <column name="TRAN_DATE">#TRAN_DATES[T(Tools).rand(#TRAN_DATES.size())]</column>
+            <column name="TRAN_TYPE">'2128'</column>
+            <column name="EVENT_TYPE">'CRET'</column>
+            <column name="CCY">'CNY'</column>
+            <column name="CR_DR_MAINT_IND">'C'</column>
+            <column name="TRAN_AMT">'1'</column>
+            <column name="BRANCH">#branch</column>
+            <column name="SOURCE_TYPE">'MC'</column>
+            <column name="TERMINAL_ID"></column>
+            <column name="USER_ID">#userId</column>
+            <column name="REFERENCE">'EN' + T(Tools).pd(#_SEQ_NO,'L','0',12)</column>
+            <column name="BANK_SEQ_NO">#branch + T(Tools).pd(#_SEQ_NO,'L','0',12)</column>
+            <column name="EFFECT_DATE">#_TRAN_DATE</column>
+            <!--<column name="ACCT_TRAN_FLAG"></column>-->
+            <!--<column name="REVERSAL_TRAN_TYPE"></column>-->
+            <column name="ACTUAL_BAL_AMT">#_TOTAL_AMOUNT_PREV</column>
+            <column name="BASE_ACCT_NO">#_BASE_ACCT_NO</column>
+            <column name="ACCT_SEQ_NO">'0'</column>
+            <column name="ACCT_CCY">#_CCY</column>
+            <column name="PROD_TYPE">#_PROD_TYPE</column>
+            <!--<column name="NARRATIVE"></column>-->
+            <column name="AUTH_USER_ID">'NI'</column>
+            <column name="TRAN_DESC">'性能测试造数'</column>
+            <column name="CLIENT_NO">#_CLIENT_NO</column>
+            <!--<column name="CLIENT_NAME"></column>-->
+            <column name="SERV_CHARGE">'N'</column>
+            <!--<column name="SORT_PRIORITY"></column>-->
+            <!--<column name="PBK_UPD_FLAG"></column>-->
+            <column name="CLIENT_TYPE">'10'</column>
+            <column name="ROUTER_KEY">#_CLIENT_NO</column>
+        </table>
+    </define>
+
+<!--     <block id='BR1' desc="机构/柜员">
+        <for start="0" end="0" index="index" thread="1" commit="1">
+            <define ref="fm_branch_head"/>
+        </for>
+        <for start="1" end="400" index="index" thread="10" commit="400">
+            <define ref="fm_branch"/>
+            <for start="1" end="25" index="indexK">
+                <define ref="fm_user"/>
+            </for>
+        </for>
+    </block> -->
+
+    <block id='CLIENT1' desc="补对私客户">
+        <!-- 430万客户 -->
+        <for start="1" end="4300000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1011" desc="客户号前缀"/>
+            <const name="clientType" value="01" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11007" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <!-- -->
+            <define ref="client"/>
+        </for>
+    </block>
+
+    <block id='ACCT1' desc="个人活期人民币"><!--配置参数 -->
+        <!--3000w个人活期 人民币 -->
+        <for start="1" end="15000000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1013" desc="客户号前缀"/>
+            <const name="clientType" value="01" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11001" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+            <for start="1" end="2" index="indexJ">   <!-- 个人活期3000w 人民币 -->
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="11001" desc="产品类型"/>
+                <!--sub acct-->
+                <define ref="acct"/>
+                <!--define ref="relation"/>--> <!-- acct and card relation -->
+                <!-- <for start="1" end="1" index="indexMain"> -->
+                    <!-- <define ref="card"/>card -->
+                    <!--<define ref="mainAcct"/>--><!-- main acct-->
+                    <!--<define ref="relation"/>--> <!-- acct and card relation -->
+                <!-- </for> -->
+            </for>
+        </for>
+    </block>
+
+    <block id='ACCT2' desc="个人定期人民币">
+        <!-- 800w个人定期 -->
+        <for start="1" end="8000000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1015" desc="客户号前缀"/>
+            <const name="clientType" value="01" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="11007" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <const name="acctOpenDate" value="20180920" desc="开户日期"/>
+            <!-- -->
+            <define ref="client"/>
+            <for start="1" end="1" index="indexJ">   <!-- 个人定期 800W 人民币 -->
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="11007" desc="产品类型"/>
+                <!--定期需要增加参数 -->
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20181220"></const>
+                <!--sub acct-->
+                <define ref="tdAcct"/>
+            </for>
+        </for>
+    </block>
+
+    <block id='CLIENT2' desc="补对公客户">
+        <!--20万客户-->
+        <for start="1" end="200000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1017" desc="客户号前缀"/>
+            <const name="clientType" value="02" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12001" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+        </for>
+    </block>
+    <block id='ACCT5' desc="对公活期人民币">
+        <!--对公活期 人民币 160万-->
+        <for start="1" end="400000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1019" desc="客户号前缀"/>
+            <const name="clientType" value="02" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12001" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <define ref="client"/>
+            <for start="1" end="4" index="indexJ">   <!-- 个人活期 外币 -->
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12001" desc="产品类型"/>
+                <!--sub acct-->
+                <define ref="acct"/>
+                <!--<define ref="relation"/>-->  <!-- acct and card relation -->
+            </for>
+        </for>
+    </block>
+    <block id='ACCT6' desc="对公定期人民币">
+        <!--400w对公定期 人民币 10万-->
+        <for start="1" end="100000" index="indexW" thread="50" commit="100">
+            <const name="clientPrefix" value="1021" desc="客户号前缀"/>
+            <const name="clientType" value="02" desc="客户类型"/>
+            <const name="acctInd" value="10" desc="账户类型（账号）"/>
+            <const name="acctClass" value="1" desc="I、II类户"/>
+            <const name="prodType" value="12006" desc="产品类型"/>
+            <const name="acctNamePrefix" value="dcits" desc="账户名前缀"/>
+            <const name="clientShortPrefix" value="dcits" desc="客户简称前缀"/>
+            <const name="chClientNamePrefix" value="dcits" desc="客户中文名前缀"/>
+            <const name="clientNamePrefix" value="dcits" desc="客户名前缀"/>
+            <const name="ccy" value="CNY" desc="人民币"/>
+            <const name="acctOpenDate" value="20180920" desc="开户日期"/>
+            <define ref="client"/>
+            <for start="1" end="1" index="indexJ">   <!-- 个人活期 外币 -->
+                <const name="acctSeqNo" value="0" desc="序号"/>
+                <const name="leadAcctFlag" value="Y" desc="主账户标识"/>
+                <const name="prodType" value="12006" desc="产品类型"/>
+                <!--定期需要增加参数 -->
+                <const name="term" value="3"></const>
+                <const name="termType" value="M"></const>
+                <const name="maturityDate" value="20181220"></const>
+                <!-- -->
+                <!--sub acct-->
+                <define ref="tdAcct"/>
+                <!--<define ref="relation"/>-->  <!-- acct and card relation -->
+            </for>
+        </for>
+    </block>
+</import>

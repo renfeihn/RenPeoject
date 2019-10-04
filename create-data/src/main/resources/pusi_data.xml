@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<import id="createData" desc="造数:浦思金融">
+    <dbs>
+        <db id="upright">
+            <url><![CDATA[jdbc:mysql://192.168.2.3:3306/test?useUnicode=true&characterEncoding=UTF8]]></url>
+            <username>root</username>
+            <password>123456</password>
+            <driverClass>com.mysql.jdbc.Driver</driverClass>
+        </db>
+
+    </dbs>
+    <sequences>
+        <seq name="ID" initValue="10000"/>
+		<seq name="ORDER_ID" initValue="50000000"/>
+    </sequences>
+    <truncate>
+
+        <table name="ps_merchant" condition=" where 1=1" connection="[dbs][0]"/> -->
+        <table name="ps_order" condition=" where 1=1" connection="[dbs][0]"/> -->
+
+    </truncate>
+
+    <const name="name" value="商户XX" desc="商户名称"/>
+    <const name="orderName" value="订单XX" desc="订单名称"/>
+    <const name="createBy" value="111111111111111111" desc="创建人"/>
+    <const name="createDate" value="2019-10-03" desc="创建人"/>
+
+
+    <list name="AREAS" desc="区域">
+		<item value="0001"/>
+        <item value="0002"/>
+        <item value="0003"/>
+        <item value="0004"/>
+    </list>
+
+
+    <define id="merchant" desc="商户定义">
+        <table name="ps_merchant" connection="[dbs][0]">
+            <column name="id">T(Tools).pd(#indexW,'L','0',7)</column>
+            <column name="name">#name + #_id</column>
+            <column name="area_code">#AREAS[T(Tools).rand(#AREAS.size())]</column>
+            <column name="create_by">#createBy</column>
+            <column name="create_date">#createDate</column>
+        </table>
+    </define>
+
+
+    <define id="order" desc="订单定义">
+		<table name="ps_order" connection="[dbs][0]">
+			<column name="id">T(Tools).getSeqNo('ORDER_ID')</column>
+			<column name="merchant_id">T(Tools).pd(#indexW,'L','0',7)</column>
+			<column name="name">#orderName + #_id</column>
+		</table>
+    </define>
+
+
+	<block id='ACCT' desc="商户"><!--配置参数 -->
+        <!--10万商户数据 -->
+        <for start="1" end="10000" index="indexW" thread="50" commit="100">
+            <define ref="merchant"/>
+            <for start="1" end="5" index="indexJ">   <!-- 50万个订单 -->
+                <!-- order -->
+                <define ref="order"/>
+            </for>
+        </for>
+    </block>
+</import>
+
