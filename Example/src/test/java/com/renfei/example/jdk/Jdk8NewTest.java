@@ -1,14 +1,18 @@
 package com.renfei.example.jdk;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.lang.reflect.Field;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -98,5 +102,38 @@ public class Jdk8NewTest {
         Arrays.stream(arrayOfLong).limit(10).forEach(
                 i -> System.out.print(i + " "));
         System.out.println();
+    }
+
+    @Test
+    public void test4() throws Exception {
+        User u = new User();
+        String[] dataTypes = {"int", "long", "", "", "", "java.lang.String"};
+        for (Field field : getAllFields(u)) {
+            if (ArrayUtils.toString(dataTypes).contains(field.getType().getName())) {
+//                System.out.println(field.getName());
+
+//                System.out.println(field.getType().getName());
+            } else {
+                System.out.println(field.getName());
+                for (Field field1 : getAllFields(field.getType().newInstance())) {
+//                    System.out.println(field1.getName());
+                }
+
+            }
+
+
+        }
+    }
+
+    public static Field[] getAllFields(Object object) {
+        Class<?> clazz = object.getClass();
+        List<Field> fieldList = new ArrayList<>();
+        while (clazz != null) {
+            fieldList.addAll(new ArrayList<>(Arrays.asList(clazz.getDeclaredFields())));
+            clazz = clazz.getSuperclass();
+        }
+        Field[] fields = new Field[fieldList.size()];
+        fieldList.toArray(fields);
+        return fields;
     }
 }

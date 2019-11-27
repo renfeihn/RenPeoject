@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<import id="createData" desc="造数:浦思金融">
+<import id="createData" desc="造数:浦思金融-生产">
     <dbs>
         <db id="upright">
-            <url><![CDATA[jdbc:mysql://192.168.2.254:3306/ps-cfp-test?characterEncoding=UTF-8&useUnicode=true&useSSL=false]]></url>
+            <url><![CDATA[jdbc:mysql://rm-uf6q8l9i9i94o500l.mysql.rds.aliyuncs.com:3306/ps-cfp?characterEncoding=UTF-8&useUnicode=true&useSSL=false]]></url>
             <username>root</username>
-            <password>pos@888888</password>
+            <password>Pos-888888</password>
             <driverClass>com.mysql.jdbc.Driver</driverClass>
         </db>
     </dbs>
@@ -15,7 +15,6 @@
         <seq name="PHONE_ID" initValue="30000000"/>
         <seq name="QUESTIONNAIRE_ID" initValue="5000000"/>
     </sequences>
-
 
     <truncate>
         <table name="ps_merchants" connection="[dbs][0]"/>
@@ -102,7 +101,7 @@
         <table name="pos_finance_loan_questionnaire" connection="[dbs][0]">
             <column name="id">T(Tools).getSeqNo('QUESTIONNAIRE_ID')</column>
             <column name="posid">'111111'</column>
-            <column name="merchType">'1'</column>
+            <column name="merchType">'2'</column>
             <column name="merchname">'测试商户'+T(Tools).getSeqNo('QUESTIONNAIRE_ID')</column>
             <column name="contactno">'13712345678'</column>
             <column name="address">'陕西省西安市'</column>
@@ -114,15 +113,16 @@
 
     <block id='MERCHANT' desc="商户"><!--配置参数 -->
         <!--10万商户数据 -->
-        <for start="1" end="100000" index="indexW" thread="50" commit="100">
+        <for start="1" end="10000" index="indexW" thread="50" commit="100">
             <define ref="merchant"/>
             <for start="1" end="5" index="indexJ">   <!-- 50万订单 -->
                 <!-- order -->
                 <define ref="order"/>
             </for>
-            <for start="1" end="5" index="indexk">   <!-- 50万问卷 -->
+            <for start="1" end="2" index="indexk">   <!-- 20万问卷 -->
                 <!-- question -->
                 <define ref="questionnaire"/>
+
             </for>
         </for>
     </block>

@@ -1,16 +1,10 @@
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.renfei.example.spark.WordCountTask;
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.junit.Test;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.UUID;
 
 public class WordCountTaskTest {
     @Test
@@ -22,17 +16,16 @@ public class WordCountTaskTest {
 
     @Test
     public void StringTest() throws Exception {
-
-        String s = "E:\\renfei\\zantong\\Code\\AIM_LOG";
-
-
+        for (int i = 0; i < 10; i++) {
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+            System.out.println(uuid);
+        }
 
     }
 
 
-
-    private void testReturn(int i){
-        if(i == 5){
+    private void testReturn(int i) {
+        if (i == 5) {
             return;
         }
     }
